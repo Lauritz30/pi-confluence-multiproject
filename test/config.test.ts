@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { loadConfig, resolveSafetyLevel, resolveSite, ConfigError } from "../src/config.ts";
+import { loadConfig, resolveSafetyLevel, resolveSite, ConfigError, type ConfluenceConfig } from "../src/config.ts";
 
 test("loadConfig returns stub when config file does not exist", () => {
   const cfg = loadConfig(join(tmpdir(), `missing-${Date.now()}.json`));
@@ -52,14 +52,14 @@ test("loadConfig throws on invalid entries", () => {
 });
 
 test("resolveSite resolves default and throws on unknown", () => {
-  const cfg = {
+  const cfg: ConfluenceConfig = {
     sites: [{ name: "acme", url: "https://acme.atlassian.net", email: "u@acme.com", apiToken: "t" }],
     defaultSite: "acme",
     safetyLevel: "confirm",
     mock: false,
     configPath: "x",
     configExists: true,
-  } as const;
+  };
 
   assert.equal(resolveSite(cfg).name, "acme");
   assert.throws(() => resolveSite(cfg, "other"), ConfigError);
