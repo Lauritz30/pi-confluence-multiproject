@@ -1,6 +1,6 @@
 {
   "name": "pi-confluence-multiproject",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Confluence Cloud integration for the pi coding agent — pages, search, comments, and spaces.",
   "keywords": [
     "pi-package",
